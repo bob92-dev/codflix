@@ -1,11 +1,10 @@
 /**********
-* Home page rules
+* MEDIA rules
 **********/
 
 .media-list {
     display: flex;
     flex-wrap: wrap;
-
     margin-bottom: 40px;
 }
 
@@ -51,6 +50,43 @@
     padding: 8px 20px;
 
 }
+
+.media-detail-container{
+    display:flex;
+    justify-content:space-between;
+    height:1000px;
+    flex-direction:column;
+    align-items:center;
+
+}
+.media-block-title{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.media-block-title iframe{
+    width:1280px;
+    height:720px;
+}
+.media-block-description{
+    display:flex;
+    align-items: flex-start;
+    /*justify-content:flex-start;
+    flex-wrap:wrap;*/
+
+}
+
+.madia-fiche-film{
+    display:flex;
+    flex-direction:column;
+    border-style:inset;
+    border-color:red;
+    font-size:large;
+    padding: 20px;
+   }
+
 
 @media screen and (max-width: 768px) {
     .media-list .item {

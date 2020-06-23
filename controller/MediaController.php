@@ -2,23 +2,27 @@
 require_once('model/media.php');
 
 /***************************
- * ----- LOAD HOME PAGE -----
+ * ----- LOAD MEDIA PAGES -----
  ***************************/
 
 
 function mediaPage(){
 
-    echo "ceci est le dollar get. Nous sommes dans la fonction media page</br>";
-    //var_dump($_GET['title']);
-
     $search = isset($_GET['title']) ? $_GET['title'] : null;
     if($search!=null){
         $medias = Media::filterMedias($search);
     }else{
-        $medias = Media::displayAllMedias($search);
+        $medias = Media::displayAllMedias();
     }
-    echo "ceci est le media : </br>";
-    var_dump($medias);
     require_once('view/mediaListView.php');
 }
-    ?>
+
+function detailPage($id){
+    // we check the presence and the type of our id so as to defend ourselfves against  attack
+    if ((isset ($id))){
+        $id_checked = (int)($id);
+        $media = Media::displayOneMedia($id_checked);
+        require_once("view/detailView.php");
+    }
+}
+?>

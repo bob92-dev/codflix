@@ -98,12 +98,20 @@ class Media {
     return $req->fetchAll();
   }
 
-    public static function displayAllMedias($title) {
+    public static function displayAllMedias() {
       $db   = init_db();
       $req  = $db->prepare( "SELECT * FROM media ORDER BY release_date DESC" );
-      $req->execute( array( $title ));
+      $req->execute();
       // Close database connection
       $db   = null;
       return $req->fetchAll();
+  }
+
+  public static function displayOneMedia($id){
+      $db = init_db();
+      $req  = $db->prepare( "SELECT * FROM media WHERE id= ?" );
+      $req->execute(array( $id ));
+      $db = null;
+      return $req->fetch(PDO::FETCH_ASSOC);
   }
 }

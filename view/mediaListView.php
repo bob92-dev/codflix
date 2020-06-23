@@ -16,6 +16,7 @@
 
 <div class="media-list">
     <?php foreach( $medias as $media ): ?>
+
         <a class="item" href="index.php?media=<?= $media['id']; ?>">
             <div class="video">
                 <div>
@@ -32,9 +33,6 @@
 <?php
 // MOI : ob-get-clean récupére les données mises en tempaons et
 $content = ob_get_clean();
-echo "nous sommes dans le fichier media LIst view)";
-//var_dump($content);
-
 ?>
 
 
