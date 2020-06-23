@@ -22,3 +22,30 @@ function signupPage() {
 /***************************
 * ----- SIGNUP FUNCTION -----
 ***************************/
+
+function signUp( $post ) {
+
+    $data = new stdClass();
+    $data->email = $post['email'];
+    $data->password = $post['password'];
+    $data->password_confirm = $post['password_confirm'];
+
+
+    // creation of a new user with datas passed in the formulaire
+    $user = new User($data);
+    $user->createUser();
+    $userData = $user->getUserByEmail();
+
+    // turning the session on
+    if ($userData && sizeof($userData) != 0):
+        if ($user->getPassword() == $userData['password']):
+
+            // Set session
+            $_SESSION['user_id'] = $userData['id'];
+
+            header('location: index.php ');
+        endif;
+    endif;
+
+    require('view/auth/signupView.php');
+}

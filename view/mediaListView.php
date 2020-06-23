@@ -1,4 +1,5 @@
-<?php ob_start(); ?>
+<?php ob_start();
+?>
 
 <div class="row">
     <div class="col-md-4 offset-md-8">
@@ -28,6 +29,13 @@
 </div>
 
 
-<?php $content = ob_get_clean(); ?>
+<?php
+// MOI : ob-get-clean récupére les données mises en tempaons et
+$content = ob_get_clean();
+echo "nous sommes dans le fichier media LIst view)";
+//var_dump($content);
+
+?>
+
 
 <?php require('dashboard.php'); ?>
