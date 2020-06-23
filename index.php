@@ -4,6 +4,7 @@ require_once('controller/homeController.php');
 require_once('controller/loginController.php');
 require_once('controller/signupController.php');
 require_once('controller/MediaController.php');
+require_once ('controller/postContact.php');
 
 /**************************
  * ----- HANDLE ACTION -----
@@ -30,6 +31,10 @@ if (isset($_GET['action'])):
             logout();
             break;
 
+        case 'contacter':
+            contactPage();
+            break;
+
     endswitch;
 
 else:
@@ -41,7 +46,6 @@ else:
         } else {
             mediaPage();
         }
-
     else:
         homePage();
     endif;
