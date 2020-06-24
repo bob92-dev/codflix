@@ -7,6 +7,9 @@ class User {
   protected $id;
   protected $email;
   protected $password;
+  protected $confirmKey;
+
+
 
   public function __construct( $user = null ) {
 
@@ -14,6 +17,7 @@ class User {
       $this->setId( isset( $user->id ) ? $user->id : null );
       $this->setEmail( $user->email );
       $this->setPassword( $user->password, isset( $user->password_confirm ) ? $user->password_confirm : false );
+      $this->setConfirmKey($user->confirmKey);
     endif;
   }
 
@@ -38,11 +42,22 @@ class User {
   public function setPassword( $password, $password_confirm = false ) {
 
     if( $password_confirm && $password != $password_confirm ):
+      echo "Vos mots de passes sont différents";
       throw new Exception( 'Vos mots de passes sont différents' );
     endif;
 
-    $this->password = $password;
+    $this->password = hash("sha256", $password);
+
   }
+
+
+    /**
+     * @param mixed $confirmKey
+     */
+    public function setConfirmKey($confirmKey)
+    {
+        $this->confirmKey = $confirmKey;
+    }
 
   /***************************
   * -------- GETTERS ---------
@@ -60,33 +75,50 @@ class User {
     return $this->password;
   }
 
-  /***********************************
-  * -------- CREATE NEW USER ---------
-  ************************************/
 
-  public function createUser() {
+    /**
+     * @return mixed
+     */
+    public function getConfirmKey()
+    {
+        return $this->confirmKey;
+    }
+  /*****************************************************************
+  * -------- CREATE NEW USER IN DATABASE(BDD) ---------
+  ******************************************************************/
+  public function isUserinBdd(){
+      $presence = false;
+      $db  = init_db();
+      // Check if email already exist
+      try{
+          $req  = $db->prepare( "SELECT * FROM user WHERE email = ?" );
+          $req->execute( array( $this->getEmail() ) );
+          if($req->rowCount() > 0){
+              $presence =true;
+              echo "utilisateur déjà dans la base de donnée";
+          }
 
+      }catch(Exception $e){
+          echo "erreur lors de l'exectiution de la requete" . $e.getmessage;
+      }
+     ;
+     $db = null;
+     return $presence;
+  }
+
+  public function setUserInBdd() {
     // Open database connection
     $db   = init_db();
-
-    // Check if email already exist
-    $req  = $db->prepare( "SELECT * FROM user WHERE email = ?" );
-    $req->execute( array( $this->getEmail() ) );
-
-    if( $req->rowCount() > 0 ) throw new Exception( "Email ou mot de passe incorrect" );
-
     // Insert new user
-    $req->closeCursor();
-
-    $req  = $db->prepare( "INSERT INTO user ( email, password ) VALUES ( :email, :password )" );
+    $req  = $db->prepare( "INSERT INTO user ( email, password, confirmkey ) VALUES ( :email, :password, :confirmkey )" );
     $req->execute( array(
       'email'     => $this->getEmail(),
-      'password'  => $this->getPassword()
+      'password'  => hash('SHA256',$this->getPassword()),
+      'confirmkey'=> $this->getConfirmKey()
     ));
-
+     $req->closeCursor();
     // Close databse connection
     $db = null;
-
   }
 
   /**************************************
@@ -125,4 +157,12 @@ class User {
     return $req->fetch();
   }
 
+  public static function generateUserKey(){
+      $keylenght = 16;
+      $key = "";
+      for($i=1; $i>=$keylenght;$i++){
+          $key .= mt_rand(0,9);
+      }
+      return (int)$key;
+  }
 }

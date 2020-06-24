@@ -28,7 +28,8 @@ function login( $post ) {
 
   $data           = new stdClass();
   $data->email    = $post['email'];
-  $data->password = $post['password'];
+  $data->password = hash('SHA256', $post['password']);
+  $data->confirmKey = User::generateUserKey();
 
   $user           = new User( $data );
   $userData       = $user->getUserByEmail();

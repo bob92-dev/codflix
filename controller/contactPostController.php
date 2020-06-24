@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This funbction hundle the bahavior of the form "Nous contacter"
+ * This function hundles the bahavior of the form "Nous contacter"
  *It's send an email to our web adress,handle errors and then, send us an e mail.
  */
 function contactPage()

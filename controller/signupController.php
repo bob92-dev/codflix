@@ -27,25 +27,21 @@ function signUp( $post ) {
 
     $data = new stdClass();
     $data->email = $post['email'];
-    $data->password = $post['password'];
-    $data->password_confirm = $post['password_confirm'];
-
+    if ($post['password'] === $post['password_confirm']){
+        $data->password = $post['password'];
+        }
+    else {
+        echo "erreur, indiquez deux fois le même mot de passe svp";
+    }
+    $data->confirmKey = User::generateUserKey();
 
     // creation of a new user with datas passed in the formulaire
     $user = new User($data);
-    $user->createUser();
-    $userData = $user->getUserByEmail();
-
-    // turning the session on
-    if ($userData && sizeof($userData) != 0):
-        if ($user->getPassword() == $userData['password']):
-
-            // Set session
-            $_SESSION['user_id'] = $userData['id'];
-
-            header('location: index.php ');
-        endif;
-    endif;
-
+    //enrolement of the user
+    if(isset($user) && (!$user->isUserinBdd())) {
+        $user->setUserInBdd();
+        $_SESSION['user_id'] = $user->getId();
+        header(mediaPage());
+    }
     require('view/auth/signupView.php');
 }
