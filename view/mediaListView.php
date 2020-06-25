@@ -2,6 +2,7 @@
 ?>
 
 <div class="row">
+    <div class="col-12">
     <div class="col-md-4 offset-md-8">
         <form method="get">
             <div class="form-group has-btn">
@@ -12,21 +13,26 @@
             </div>
         </form>
     </div>
-</div>
+    </div>
 
-<div class="media-list">
-    <?php foreach( $medias as $media ): ?>
-     <a class="item" href="index.php?media=<?= $media['id']; ?>&type=<?= $media['type']; ?>">
-            <div class="video">
-                <div>
-                    <iframe allowfullscreen="" frameborder="0"
-                            src="<?= $media['trailer_url']; ?>" ></iframe>
-                </div>
+        <?php foreach( $medias as $media ): ?>
+    <div class="row">
+        <div class="col-12">
+        <div class="card" style="width: 18rem;">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="<?= $media['trailer_url']; ?>" allowfullscreen></iframe>
             </div>
-            <div class="title"><?= $media['title']; ?></div>
-        </a>
-    <?php endforeach; ?>
-</div>
+            <div class="card-body">
+                <h5 class="card-title"><?= $media['title']; ?></h5>
+                <a class="item" href="index.php?media=<?= $media['id']; ?>&type=<?= $media['type']; ?>">
+                    <a href="index.php?media=<?= $media['id'];?>&type=<?= $media['type']; ?>" class="btn btn-primary">Voir le trailer</a>
+            </div>
+        </div>
+        </div >
+    </div>
+
+        <?php endforeach; ?>
+
 
 
 <?php

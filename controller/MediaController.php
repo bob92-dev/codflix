@@ -33,8 +33,6 @@ function detailPageSerie($id)
         $media = Media::displayOneMedia($id_checked);
         $episode= Media::getMediaById($id_checked);
         $seasons = Media::showAllEpisodes($episode['title']);
-        echo "voici tous les épisodes de la saison";
-        var_dump($seasons);
         require_once("view/detailView.php");
     }
 }

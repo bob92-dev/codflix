@@ -135,7 +135,6 @@ class Media {
       return $req->fetch(PDO::FETCH_ASSOC);
   }
     public static function showAllEpisodes($title){
-     // echo"ceci est le titre dans showallepisodes </br>";
         $db = init_db();
         $req  = $db->prepare( "SELECT * FROM media as M 
 LEFT JOIN series as S

@@ -3,7 +3,7 @@
     <div class="media-block-title">
         <h1>A voir : <?= $media["title"]; ?></h1>
         <div>
-            <iframe allowfullscreen="" frameborder="0"
+            <iframe style='width:480px; height:270px' allowfullscreen="" frameborder="0"
                     src="<?= $media["trailer_url"]; ?>"></iframe>
         </div>
     </div>
