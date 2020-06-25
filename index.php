@@ -35,6 +35,9 @@ if (isset($_GET['action'])):
             contactPage();
             break;
 
+        case 'historique':
+            historiquePage();
+            break;
     endswitch;
 
 else:
@@ -48,7 +51,11 @@ else:
             else {
                 detailPage($_GET['media']);
             }
-        } else {
+        }
+        elseif(isset($_GET['media'])&&($_GET['show']=='true')){
+                displayPage($_GET['media']);
+        }
+        else {
             mediaPage();
         }
     else:

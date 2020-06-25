@@ -109,7 +109,7 @@ class Media {
   public static function filterMedias( $title ) {
       // Open database connection
     $db   = init_db();
-    $req  = $db->prepare( "SELECT * FROM media WHERE title = ? ORDER BY release_date DESC" );
+    $req = $db->prepare("SELECT * FROM media WHERE title LIKE '$title%' ORDER BY release_date DESC");
     $req->execute( array( $title ));
    // Close database connection
     $db  = null;
@@ -134,17 +134,43 @@ class Media {
       $db = null;
       return $req->fetch(PDO::FETCH_ASSOC);
   }
-    public static function showAllEpisodes($title){
+    public static function getAllEpisodesofOneSeason($title, $saisonName){
         $db = init_db();
         $req  = $db->prepare( "SELECT * FROM media as M 
 LEFT JOIN series as S
 on M.id = S.mediaId
-where title = ?");
-        $req->execute(array( $title ));
+where title = ? AND saison= ?");
+        $req->execute(array( $title,$saisonName));
         $response = $req->fetchAll();
         $db = null;
         return $response;
         }
-}
 
+    public static function getSeason($id){
+        $db = init_db();
+        $req  = $db->prepare("SELECT * FROM series where mediaId=?");
+        $req->execute(array( $id ));
+        $response = $req->fetchAll();
+        $db = null;
+        return $response[0]["saison"];
+  }
+    public static function getEpisode($id){
+        $db = init_db();
+        $req  = $db->prepare("SELECT * FROM series where mediaId=?");
+        $req->execute(array( $id ));
+        $response = $req->fetchAll();
+        $db = null;
+        return  $response[0]["episode"];
+  }
 
+/*
+    public static function findSeason($episodeId){
+        $db = init_db();
+        $req  = $db->prepare("SELECT saison FROM series where mediaId=?");
+        $req->execute(array( $episodeId ));
+        $response = $req->fetchAll();
+        $db = null;
+        return $response;
+}*/
+
+ }
