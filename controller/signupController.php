@@ -23,25 +23,35 @@ function signupPage() {
 * ----- SIGNUP FUNCTION -----
 ***************************/
 
-function signUp( $post ) {
+function signUp($post)
+{
 
     $data = new stdClass();
     $data->email = $post['email'];
-    if ($post['password'] === $post['password_confirm']){
+    if ($post['password'] === $post['password_confirm']) {
         $data->password = $post['password'];
-        }
-    else {
-        echo "erreur, indiquez deux fois le même mot de passe svp";
-    }
-    $data->confirmKey = User::generateUserKey();
+        $data->confirmKey = User::generateUserKey();
+        //echo "coucou confirmkey de data";
+        //var_dump($data);
 
-    // creation of a new user with datas passed in the formulaire
-    $user = new User($data);
-    //enrolement of the user
-    if(isset($user) && (!$user->isUserinBdd())) {
-        $user->setUserInBdd();
-        $_SESSION['user_id'] = $user->getId();
-        header(mediaPage());
+        // creation of a new user with datas passed in the formulaire
+        $user = new User($data);
+        //enrolement of the user
+        if (isset($user) && (!$user->isUserinBdd())) {
+            $user->setUserInBdd();
+            //echo "coucou user";
+            //var_dump($user);
+            $userData= $user->getUserByEmail();
+            //echo "bonjour user data";
+            //var_dump($userData);
+            $_SESSION['user_id'] = $userData['id'];
+            //echo "coucou session";
+            //var_dump($_SESSION);
+           header( 'location: index.php ');
+        }
+    } else {
+        echo '<div class="alert alert-danger">Erreur : les mots de passe ne correspondent pas</div>';
     }
+
     require('view/auth/signupView.php');
 }

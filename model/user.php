@@ -95,7 +95,7 @@ class User {
           $req->execute( array( $this->getEmail() ) );
           if($req->rowCount() > 0){
               $presence =true;
-              echo "utilisateur déjà dans la base de donnée";
+              echo '<div class="alert alert-danger">Vous êtes deja inscris</div>';
           }
 
       }catch(Exception $e){

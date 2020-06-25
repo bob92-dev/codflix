@@ -39,7 +39,7 @@ if (isset($_GET['action'])):
 
 else:
 
-    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+    $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : false;
     if ($user_id):
         if(isset($_GET['media'])){
             detailPage($_GET['media']);

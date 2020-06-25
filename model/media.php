@@ -98,6 +98,8 @@ class Media {
     return $req->fetchAll();
   }
 
+
+
     public static function displayAllMedias() {
       $db   = init_db();
       $req  = $db->prepare( "SELECT * FROM media ORDER BY release_date DESC" );

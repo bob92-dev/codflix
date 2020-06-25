@@ -41,7 +41,6 @@ function login( $post ) {
 
       // Set session
       $_SESSION['user_id'] = $userData['id'];
-
       header( 'location: index.php ');
     endif;
   endif;
