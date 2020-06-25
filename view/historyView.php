@@ -23,11 +23,10 @@
 <?php endforeach; ?>
 
 
+<?php
+// MOI : ob-get-clean récupére les données mises en tempaons et
+$content = ob_get_clean();
+?>
 
-    <?php
-    // MOI : ob-get-clean récupére les données mises en tempaons et
-    $content = ob_get_clean();
-    ?>
 
-
-    <?php require('dashboard.php'); ?>
+<?php require('dashboard.php'); ?>

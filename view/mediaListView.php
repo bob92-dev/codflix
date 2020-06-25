@@ -25,7 +25,8 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title"><?= $media['title']; ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Sorti le <?= convertDate($media["release_date"]) ?></h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Sorti
+                            le <?= convertDate($media["release_date"]) ?></h6>
                         <a class="item" href="index.php?media=<?= $media['id']; ?>&type=<?= $media['type']; ?>">
                             <a href="index.php?media=<?= $media['id']; ?>&type=<?= $media['type']; ?>"
                                class="btn btn-primary">Voir le trailer</a>

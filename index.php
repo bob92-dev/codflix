@@ -25,7 +25,6 @@ if (isset($_GET['action'])):
         case 'signup':
             if (!empty($_POST)) signUp($_POST);
             signupPage();
-
             break;
 
         case 'logout':

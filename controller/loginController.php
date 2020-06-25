@@ -1,60 +1,63 @@
 <?php
 session_start();
 
-require_once( 'model/user.php' );
+require_once('model/user.php');
 
 /****************************
-* ----- LOAD LOGIN PAGE -----
-****************************/
+ * ----- LOAD LOGIN PAGE -----
+ ****************************/
 
-function loginPage() {
+function loginPage()
+{
 
-  $user     = new stdClass();
-  $user->id = isset( $_SESSION['user_id'] ) ? $_SESSION['user_id'] : false;
+    $user = new stdClass();
+    $user->id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
 
-  if( !$user->id ):
-    require('view/auth/loginView.php');
-  else:
-    require('view/homeView.php');
-  endif;
+    if (!$user->id):
+        require('view/auth/loginView.php');
+    else:
+        require('view/homeView.php');
+    endif;
 
 }
 
 /***************************
-* ----- LOGIN FUNCTION -----
-***************************/
+ * ----- LOGIN FUNCTION -----
+ ***************************/
 
-function login( $post ) {
+function login($post)
+{
 
-  $data           = new stdClass();
-  $data->email    = $post['email'];
-  $data->password = hash('SHA256', $post['password']);
-  $data->confirmKey = User::generateUserKey();
+    $data = new stdClass();
+    $data->email = $post['email'];
+    $data->password = hash('SHA256', $post['password']);
+    $data->confirmKey = User::generateUserKey();
 
-  $user           = new User( $data );
-  $userData       = $user->getUserByEmail();
+    $user = new User($data);
+    $userData = $user->getUserByEmail();
 
-  $error_msg      = "Email ou mot de passe incorrect";
+    $error_msg = "Email ou mot de passe incorrect";
 
-  if( $userData && sizeof( $userData ) != 0 ):
-    if( $user->getPassword() == $userData['password'] ):
+    if ($userData && sizeof($userData) != 0):
+        if ($user->getPassword() == $userData['password']):
 
-      // Set session
-      $_SESSION['user_id'] = $userData['id'];
-      header( 'location: index.php ');
+            // Set session
+            $_SESSION['user_id'] = $userData['id'];
+            header('location: index.php ');
+        endif;
     endif;
-  endif;
 
-  require('view/auth/loginView.php');
+    require('view/auth/loginView.php');
 }
 
 /****************************
-* ----- LOGOUT FUNCTION -----
-****************************/
+ * ----- LOGOUT FUNCTION -----
+ ****************************/
 
-function logout() {
-  $_SESSION = array();
-  session_destroy();
+function logout()
+{
+    $_SESSION = array();
+    session_destroy();
 
-  header( 'location: index.php' );
+    header('location: index.php');
 }

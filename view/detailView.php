@@ -68,10 +68,7 @@
 
 
 <?php
-// MOI : ob-get-clean récupére les données mises en tempaons et
 $content = ob_get_clean();
-//var_dump($content);
-
 ?>
 
 
