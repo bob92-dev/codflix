@@ -5,6 +5,7 @@ require_once('controller/loginController.php');
 require_once('controller/signupController.php');
 require_once('controller/MediaController.php');
 require_once('controller/contactPostController.php');
+require_once ('controller/historyController.php');
 
 /**************************
  * ----- HANDLE ACTION -----
@@ -31,12 +32,12 @@ if (isset($_GET['action'])):
             logout();
             break;
 
-        case 'contacter':
+        case 'contact':
             contactPage();
             break;
 
-        case 'historique':
-            historiquePage();
+        case 'history':
+            historyPage();
             break;
     endswitch;
 

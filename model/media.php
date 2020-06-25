@@ -163,14 +163,17 @@ where title = ? AND saison= ?");
         return  $response[0]["episode"];
   }
 
-/*
-    public static function findSeason($episodeId){
-        $db = init_db();
-        $req  = $db->prepare("SELECT saison FROM series where mediaId=?");
-        $req->execute(array( $episodeId ));
-        $response = $req->fetchAll();
-        $db = null;
-        return $response;
-}*/
 
- }
+  public static function getHistory($user_id){
+      $db = init_db();
+      var_dump($user_id);
+      $req  = $db->prepare("SELECT media_id FROM history LEFT JOIN user on history.user_id = user.id LEFT JOIN media on history.media_id = media.id where user_id = ?");
+      $req->execute(array( $user_id ));
+      $response = $req->fetchAll();
+      $db = null;
+      return $response;
+
+  }
+
+
+}
