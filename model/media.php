@@ -164,14 +164,22 @@ where title = ? AND saison= ?");
   }
 
 
-  public static function getHistory($user_id){
+  public static function getHistory($userid){
       $db = init_db();
-      var_dump($user_id);
-      $req  = $db->prepare("SELECT media_id FROM history LEFT JOIN user on history.user_id = user.id LEFT JOIN media on history.media_id = media.id where user_id = ?");
-      $req->execute(array( $user_id ));
+      $req  = $db->prepare("SELECT * FROM history LEFT JOIN user on history.user_id = user.id LEFT JOIN media on history.media_id = media.id where user_id = ?");
+      $req->execute(array( $userid ));
       $response = $req->fetchAll();
       $db = null;
       return $response;
+
+  }
+
+  public static function addOneToHistory($userid,$mediaId,$startdate){
+      $db = init_db();
+      $req  = $db->prepare("INSERT INTO history (user_id, media_id,start_date) VALUES (?, ?,?)");
+      $req->execute(array( $userid, $mediaId, $startdate ));
+      var_dump($req);
+      $db = null;
 
   }
 

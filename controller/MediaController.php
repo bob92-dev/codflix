@@ -51,8 +51,13 @@ function detailPageSerie($id)
 function displayPage($id){
     // we check the presence and the type of our id so as to defend ourselfves against  attack
     if ((isset ($id))){
+        echo " ces var dumpid displaypage";
+        var_dump($id);
         $id_checked = (int)($id);
         $media = Media::displayOneMedia($id_checked);
+        $userId = $_SESSION['user_id'];
+        $myDate = date("Y-m-d H:i:s");
+        Media::addOneToHistory($userId, $id,$myDate);
         require_once("view/displayView.php");
     }
 }
