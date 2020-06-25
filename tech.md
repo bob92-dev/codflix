@@ -1,0 +1,2 @@
+- Aucun ajout de bibliothéque. 
+- note pour les examinateurs : pas d'ajax dans cet examen. Certes, cette technologie est importante, mais nous ne l'avons pas vu en cours de js. Et les délais étaient trop courts pour la maitriser. La fonction de recherche est donc effectuée en php. 
