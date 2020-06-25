@@ -3,16 +3,14 @@
 **********/
 
 footer {
-    position: fixed;
+    position:fixed;
     bottom: 0;
-
     width: 100%;
-
     background: #f8f8f8;
-
-    padding: 15px 25px;
+    z-index:-1;
+    padding: 15px;
 }
-@media only screen and (max-width:600px) {
+@media only screen and (max-width:400px) {
         footer {
             display:none;
         }

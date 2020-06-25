@@ -2,7 +2,7 @@
 ?>
 
 <?php foreach ($history as $media): ?>
-    <div class="row">
+    <div class="row body_current">
         <div class="col-12">
             <div class="card" style="width: 18rem;">
                 <div class="embed-responsive embed-responsive-16by9">
