@@ -17,6 +17,21 @@
         <div>
             <h2 class="media-fiche-film">RESUME :</h2>
             <?= $media["summary"]?>
+
+        <?php if($_GET['type']=='serie'):?>
+        <?php var_dump($_GET['type'])?>
+          <?php foreach( $seasons as $season ): ?>
+           <div class="video">
+                <div>
+                    <iframe allowfullscreen="" frameborder="0"
+                            src="<?= $season['trailer_url']; ?>" ></iframe>
+                </div>
+            </div>
+            <div class="title"><?= $season['title']; ?></div>
+        </a>
+                <?php endforeach; ?>
+        <?php endif;?>
+
         </div>
       </section>
 

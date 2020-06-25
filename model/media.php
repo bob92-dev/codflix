@@ -84,6 +84,24 @@ class Media {
     return $this->trailer_url;
   }
 
+    /************************************
+     * -------- GET MEDIA BY ID --------
+     ************************************/
+    public static function getMediaById( $id ) {
+
+        // Open database connection
+        $db   = init_db();
+
+        $req  = $db->prepare( "SELECT * FROM media WHERE id = ?" );
+        $req->execute( array( $id ));
+
+        // Close databse connection
+        $db   = null;
+
+        return $req->fetch();
+    }
+
+
   /***************************
   * -------- GET LIST --------
   ***************************/
@@ -116,4 +134,18 @@ class Media {
       $db = null;
       return $req->fetch(PDO::FETCH_ASSOC);
   }
+    public static function showAllEpisodes($title){
+     // echo"ceci est le titre dans showallepisodes </br>";
+        $db = init_db();
+        $req  = $db->prepare( "SELECT * FROM media as M 
+LEFT JOIN series as S
+on M.id = S.mediaId
+where title = ?");
+        $req->execute(array( $title ));
+        $response = $req->fetchAll();
+        $db = null;
+        return $response;
+        }
 }
+
+

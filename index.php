@@ -41,8 +41,13 @@ else:
 
     $user_id = (isset($_SESSION['user_id'])) ? $_SESSION['user_id'] : false;
     if ($user_id):
-        if(isset($_GET['media'])){
-            detailPage($_GET['media']);
+        if(isset($_GET['media'])&&isset($_GET['type'])){
+            if ($_GET['type']=='serie'){
+                detailPageSerie($_GET['media']);
+            }
+            else {
+                detailPage($_GET['media']);
+            }
         } else {
             mediaPage();
         }
